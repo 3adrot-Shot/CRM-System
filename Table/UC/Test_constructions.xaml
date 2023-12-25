@@ -1,0 +1,69 @@
+﻿<UserControl x:Class="Table.UC.Test_constructions"
+                          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             MinHeight="500"
+             MinWidth="700">
+
+    <Border CornerRadius="6">
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                <GradientStop Color="#2E2E2E" Offset="0"/>
+                <GradientStop Color="#383838" Offset="0.5"/>
+                <GradientStop Color="#333333" Offset="1"/>
+            </LinearGradientBrush>
+        </Border.Background>
+
+        <Grid>
+            <Label Content="Test construct" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="72"/>
+            <ListView x:Name = "LV_Projects"
+              Background="Transparent"
+              BorderBrush="Transparent"
+              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+              >
+                <ListViewItem>
+                        <StackPanel Orientation="Horizontal" Margin="0,-7,0,-7">
+                            <Image Source="/images/myxa_vector.png" Stretch="UniformToFill" Margin="5,1,1,1" MinHeight="50" MinWidth="50" Width="50" Height="50" HorizontalAlignment="Left"/>
+                            <Border CornerRadius="6" Margin="5,5,-3,5" MinWidth="130" MinHeight="40" Background="#FFDEDEDE" BorderThickness="1">
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Text="Tested construct" Margin="5,0,0,0" FontSize="16" Foreground="Black"/>
+                                    <Canvas HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,93,0" Width="25" Height="15">
+                                        <Path 
+                                        Data="M272.9,242.5H27.1a12.6,12.6,0,0,1-12.6-12.6V40.6A12.6,12.6,0,0,1,27.1,28H77.92A12.59,12.59,0,0,1,90.37,38.71l5,21.08A12.59,12.59,0,0,0,107.83,70.5H272.91A12.59,12.59,0,0,1,285.5,83.1V229.9A12.6,12.6,0,0,1,272.9,242.5Z"
+                                        Fill="#FFFFA900"
+                                        Stroke="Black"
+                                        StrokeThickness="0.3"
+                                        Stretch="Uniform"
+                                        VerticalAlignment="Top"
+                                        Width="25" Height="15"
+                                    />
+                                        <Canvas.BitmapEffect>
+                                            <DropShadowBitmapEffect Opacity="0.8" ShadowDepth="0"/>
+                                        </Canvas.BitmapEffect>
+                                    </Canvas>
+                                </StackPanel>
+                            </Border>
+                            
+                            <Border CornerRadius="6" Margin="5,5,-3,5" MinWidth="95" MinHeight="40" Background="#FFBAF371">
+                                <!--<StackPanel Orientation="Vertical">
+                                    <TextBlock Text="Не требуется" Margin="5,0,0,0" TextAlignment="Left" FontSize="14" Foreground="#2E5300"/>
+                                    <TextBlock Text="Карачурин А. Ф." Margin="5,-3,0,0" TextAlignment="Left" Foreground="#2E5300" FontSize="10"/>
+                                    <TextBlock Text="Карачурин А. Ф." Margin="5,-3,0,0" TextAlignment="Left" Foreground="#2E5300" FontSize="10"/>
+                                </StackPanel>-->
+                            </Border>
+                            
+                            
+                            <Border CornerRadius="6" Margin="5,5,-3,5" MinWidth="85" MinHeight="40" Background="#FFABABAB">
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Text="Карачурин А. Ф." Margin="5,9,0,0" TextAlignment="Left" Foreground="White" FontSize="10"/>
+                                    <TextBlock Text="Карачурин А. Ф." Margin="5,-3,0,0" TextAlignment="Left" Foreground="White" FontSize="10"/>
+                                </StackPanel>
+                            </Border>
+                    </StackPanel>
+                </ListViewItem>
+            </ListView>
+        </Grid>
+    </Border>
+</UserControl>

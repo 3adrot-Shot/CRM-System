@@ -1,0 +1,19 @@
+﻿<Window x:Class="Table.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Table"
+        mc:Ignorable="d" 
+        Height="600" Width="920"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True"
+        Title="Login">
+    <!--MouseDown="Windows_MouseDown"-->
+        
+    <Border CornerRadius="30" Background="#3D3D3D">
+        
+    </Border>
+</Window>
