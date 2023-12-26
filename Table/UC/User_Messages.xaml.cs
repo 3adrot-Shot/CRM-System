@@ -24,5 +24,28 @@ namespace Table.UC
         {
             InitializeComponent();
         }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (TB_Search_watermark != null) {
+                if (string.IsNullOrEmpty(TB_Search.Text))
+                    TB_Search_watermark.Visibility = Visibility.Visible;
+                else
+                    TB_Search_watermark.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void TB_Search_TouchEnter(object sender, TouchEventArgs e)
+        {
+
+        }
+
+        private void TB_Search_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                // Обработка текст бокса поиска
+            }
+        }
     }
 }
