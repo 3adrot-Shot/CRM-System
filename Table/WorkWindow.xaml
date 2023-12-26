@@ -6,8 +6,8 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="WorkView" Height="600" Width="900"
-        MinHeight="600"
-        MinWidth="906"
+        MinHeight="510"
+        MinWidth="715"
         WindowStyle="None"
         ResizeMode="CanResizeWithGrip"
         WindowStartupLocation="CenterScreen"
@@ -20,7 +20,7 @@
             x:Name="CornerWindow" 
             CornerRadius="1"                    
             BorderThickness="3"
-            Opacity="0.95"
+            Opacity="0.75"
             >
 
             <Border.BorderBrush>

@@ -7,7 +7,7 @@
              mc:Ignorable="d"
              MinHeight="500"
              MinWidth="700"
-             >
+             Background="White">
     <Border CornerRadius="6">
         <Border.Background>
             <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
@@ -18,8 +18,60 @@
         </Border.Background>
 
         <Grid>
-            <Label Content="User Messages" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="72"/>
-
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <!--<Grid Background="White" HorizontalAlignment="Left" MinWidth="60"/>-->
+            <Grid Grid.Column="0" Background="Red" HorizontalAlignment="Left" MinHeight="300" MinWidth="317">
+                <ListView x:Name="LV_Messages_Users"
+                          Background="Transparent"
+                          BorderBrush="Green"
+                          BorderThickness="9"
+                          ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                          ScrollViewer.VerticalScrollBarVisibility="Auto"
+                          >
+                    <ListView.Items>
+                        <ListViewItem>
+                            <Border Margin="-6" VerticalAlignment="Center" HorizontalAlignment="Center" MinHeight="60" MinWidth="315" Background="DarkRed">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                        <Ellipse Margin="10,0,0,0" Width="45" Height="45" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                            <Ellipse.Fill>
+                                                <RadialGradientBrush>
+                                                    <GradientStop Color="Yellow" Offset="0"/>
+                                                </RadialGradientBrush>
+                                            </Ellipse.Fill>
+                                        </Ellipse>
+                                        <Ellipse Margin="-45,0,0,0" Width="45" Height="45" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                            <Ellipse.Fill>
+                                                <ImageBrush ImageSource="/images/myxa_vector_char.png" Stretch="Fill"/>
+                                            </Ellipse.Fill>
+                                        </Ellipse>
+                                        <StackPanel Orientation="Vertical">
+                                            <StackPanel Orientation="Horizontal" >
+                                                <TextBlock Text="Рафаэль (Муха)" FontSize="15" Margin="11,8,0,0"/>
+                                            </StackPanel>
+                                            <TextBlock Text="Тут сообщение" FontSize="13" Margin="12,5,0,0"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <TextBlock Grid.Column="1" Text="20:35" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,10,0"/>
+                                </Grid>
+                            </Border>
+                        </ListViewItem>
+                    </ListView.Items>
+                </ListView>
+            </Grid>
+            <Grid Grid.Column="1" Background="Yellow" Margin="0,0,0,0" MinHeight="100" HorizontalAlignment="Stretch" MinWidth="100"/>
         </Grid>
     </Border>
 </UserControl>
+<!--<Label Content="User Messages" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="72"/>-->
