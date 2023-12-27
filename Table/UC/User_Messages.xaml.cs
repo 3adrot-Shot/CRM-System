@@ -34,12 +34,23 @@ namespace Table.UC
                     TB_Search_watermark.Visibility = Visibility.Hidden;
             }
         }
-
-        private void TB_Search_TouchEnter(object sender, TouchEventArgs e)
+        private void TextBoxMes_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            if (TB_Message_watermark != null)
+            {
+                if (string.IsNullOrEmpty(TB_Message.Text))
+                    TB_Message_watermark.Visibility = Visibility.Visible;
+                else
+                    TB_Message_watermark.Visibility = Visibility.Hidden;
+            }
         }
-
+        private void TB_Message_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                // Обработка текста сообщения
+            }
+        }
         private void TB_Search_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)

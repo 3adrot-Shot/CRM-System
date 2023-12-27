@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="WorkView" Height="600" Width="900"
-        MinHeight="510"
-        MinWidth="715"
+        Title="WorkView" Height="559" Width="815"
+        MinHeight="559"
+        MinWidth="815"
         WindowStyle="None"
         ResizeMode="CanResizeWithGrip"
         WindowStartupLocation="CenterScreen"
@@ -20,7 +20,7 @@
             x:Name="CornerWindow" 
             CornerRadius="1"                    
             BorderThickness="3"
-            Opacity="0.5"
+            Opacity="0.95"
             >
 
             <Border.BorderBrush>
@@ -160,7 +160,7 @@
                         </Button.Template>
                     </Button>
                 </Grid>
-                <Grid x:Name="GridMain" Grid.Row="1" Margin="10"/>
+                <Grid x:Name="GridMain" Grid.Row="1" Margin="10,10,10,10"/>
                 <Grid Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left">
                     <!--Весь лист-->
                     <!--46-170-->

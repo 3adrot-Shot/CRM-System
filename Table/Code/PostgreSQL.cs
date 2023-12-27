@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Table
 {
+    //
     internal class PostgreSQL
     {
         static public NpgsqlConnection PGSQL = null;
