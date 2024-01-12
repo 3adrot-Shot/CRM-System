@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Table.Code;
 
 namespace Table
 {
@@ -20,6 +21,7 @@ namespace Table
         public WorkWindow()
         {
             InitializeComponent();
+            startAnimationsAsync();
             this.Loaded += new RoutedEventHandler(Window1_Loaded);
             this.SourceInitialized += new EventHandler(Window1_SourceInitialized);
             this.StateChanged += new EventHandler(Window_StateChanged);
@@ -33,6 +35,17 @@ namespace Table
             GridMain.Children.Add(UC_Tasks);
             //Task.Run(()=>AsyncUpdate());
         }
+
+        public float SlideDurationSec { set; get; } = 0.9f;
+        public async Task startAnimationsAsync()
+        {
+            //Wait for Page animation done
+            await Task.Delay(TimeSpan.FromMilliseconds((int)SlideDurationSec * 1000));
+
+            //Element Animations
+            Animator.FadeIn(MainWindowWork, 2);
+        }
+
         void Window1_Loaded(object sender, RoutedEventArgs e)
         {
             btnScale_Click(null, null);
@@ -157,6 +170,15 @@ namespace Table
             {
                 HideStackPanel.Begin();
             }
+        }
+
+        private async Task startAnimationsAsyncHide()
+        {
+            //Wait for Page animation done
+            await Task.Delay(TimeSpan.FromMilliseconds((int)SlideDurationSec * 1000));
+
+            //Element Animations
+            //Animator.SlideAndFadeFromLeft(nav_pnl, 2);
         }
 
         private void TextBlock_MouseDown(object sender, MouseButtonEventArgs e)

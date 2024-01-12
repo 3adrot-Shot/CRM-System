@@ -13,7 +13,7 @@
         AllowsTransparency="True"
         MouseDown="Window_MouseDown">
 
-    <Border CornerRadius="12">
+    <Border CornerRadius="12" x:Name="MainWindowLogin">
         <!--<Border.Background>
             <ImageBrush ImageSource="/Images/back-image.jpg"
                         Stretch="None"/>

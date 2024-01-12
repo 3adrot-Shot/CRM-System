@@ -1,16 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using Table.Code;
 
 namespace Table
 {
@@ -23,6 +16,7 @@ namespace Table
         public LoginWindow()
         {
             InitializeComponent();
+            startAnimationsAsync();
             PostgreSQL.Connect();
             if (Properties.Settings.Default.SaveLogin != "" && Properties.Settings.Default.SavePassword != "")
             {
@@ -30,6 +24,17 @@ namespace Table
                 txtPass.Password = Properties.Settings.Default.SavePassword;
             }
         }
+
+        public float SlideDurationSec { set; get; } = 0.9f;
+        private async Task startAnimationsAsync()
+        {
+            //Wait for Page animation done
+            await Task.Delay(TimeSpan.FromMilliseconds((int)SlideDurationSec * 1000));
+
+            //Element Animations
+            Animator.FadeIn(MainWindowLogin, 2);
+        }
+
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
@@ -70,6 +75,7 @@ namespace Table
                         TextBoxAuth.Visibility = Visibility.Visible;
                         checkBoxSave.Visibility = Visibility.Hidden;
                         this.Hide();
+                        Work.startAnimationsAsync();
                         Work.Show();
                     }
                     else

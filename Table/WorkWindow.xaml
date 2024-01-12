@@ -15,7 +15,7 @@
         AllowsTransparency="True"
         MouseDown="Window_MouseDown"
         MouseDoubleClick="Window_MouseDoubleClick">
-    <Border CornerRadius="12">
+    <Border CornerRadius="12" x:Name="MainWindowWork">
         <Border 
             x:Name="CornerWindow" 
             CornerRadius="1"                    
