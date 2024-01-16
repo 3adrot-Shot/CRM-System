@@ -6,15 +6,24 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="WorkView" Height="559" Width="815"
-        MinHeight="559"
-        MinWidth="815"
+        MinHeight="{Binding MinHeight}"
+        MinWidth="{Binding MinWidth}"
         WindowStyle="None"
-        ResizeMode="CanResizeWithGrip"
         WindowStartupLocation="CenterScreen"
         Background="Transparent"
         AllowsTransparency="True"
         MouseDown="Window_MouseDown"
         MouseDoubleClick="Window_MouseDoubleClick">
+    <!--ResizeMode="CanResizeWithGrip"-->
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome x:Name="WindowChrome"
+                      ResizeBorderThickness="{Binding BorderResizeThickness}"
+                      CaptionHeight="{Binding CaptionHeight}"
+                      CornerRadius="0"
+                      GlassFrameThickness="0"
+                       />
+    </WindowChrome.WindowChrome>
     <Border CornerRadius="12" x:Name="MainWindowWork">
         <Border 
             x:Name="CornerWindow" 
@@ -177,6 +186,7 @@
                         <StackPanel x:Name="st_pnl">
                             <Grid Height="40">
                                 <TextBlock
+                                    x:Name="MenuText"
                                     Grid.Column="0"
                                     Margin="48,0,0,6"
                                     Text="Меню"

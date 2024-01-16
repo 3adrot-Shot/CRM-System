@@ -192,6 +192,8 @@
     <Compile Include="Code\Animator.cs" />
     <Compile Include="Code\CreateStoryboardAnim.cs" />
     <Compile Include="Code\Resize.cs" />
+    <Compile Include="Code\Settings.cs" />
+    <Compile Include="MVC.cs" />
     <Compile Include="TestWindow.xaml.cs">
       <DependentUpon>TestWindow.xaml</DependentUpon>
     </Compile>
@@ -385,6 +387,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icons\Шестерня.svg" />
+    <Resource Include="На будующее.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\build\Microsoft.Extensions.Logging.Abstractions.targets" Condition="Exists('..\packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\build\Microsoft.Extensions.Logging.Abstractions.targets')" />

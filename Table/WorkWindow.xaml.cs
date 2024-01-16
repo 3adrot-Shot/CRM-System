@@ -21,6 +21,9 @@ namespace Table
         public WorkWindow()
         {
             InitializeComponent();
+
+            this.DataContext = new MVC(this);
+
             startAnimationsAsync();
             this.Loaded += new RoutedEventHandler(Window1_Loaded);
             this.SourceInitialized += new EventHandler(Window1_SourceInitialized);
@@ -36,6 +39,8 @@ namespace Table
             //Task.Run(()=>AsyncUpdate());
         }
 
+
+
         public float SlideDurationSec { set; get; } = 0.9f;
         public async Task startAnimationsAsync()
         {
@@ -43,7 +48,7 @@ namespace Table
             await Task.Delay(TimeSpan.FromMilliseconds((int)SlideDurationSec * 1000));
 
             //Element Animations
-            Animator.FadeIn(MainWindowWork, 2);
+            Animator.FadeIn(MainWindowWork, 1); 
         }
 
         void Window1_Loaded(object sender, RoutedEventArgs e)
@@ -75,7 +80,7 @@ namespace Table
         {
             if (WindowState == WindowState.Maximized)
             {
-                this.ResizeMode = ResizeMode.CanResizeWithGrip;
+                //this.ResizeMode = ResizeMode.CanResizeWithGrip;
                 WindowState = WindowState.Normal;
                 btnScale.Content = "▢"; // Max
                 CornerWindow.CornerRadius = new CornerRadius(1);
@@ -84,7 +89,7 @@ namespace Table
             {
                 if (WindowState == WindowState.Normal)
                 {
-                    this.ResizeMode = ResizeMode.NoResize;
+                    //this.ResizeMode = ResizeMode.NoResize;
                     WindowState = WindowState.Maximized;
                     btnScale.Content = "▣"; // Min
                     CornerWindow.CornerRadius = new CornerRadius(0);
@@ -165,6 +170,7 @@ namespace Table
             if (nav_pnl.Width == 46) 
             {
                 ShowStackPanel.Begin();
+                startAnimationOpenMenuAsync();
             }
             if (nav_pnl.Width == 170)
             {
@@ -172,15 +178,15 @@ namespace Table
             }
         }
 
-        private async Task startAnimationsAsyncHide()
+        public async Task startAnimationOpenMenuAsync()
         {
             //Wait for Page animation done
             await Task.Delay(TimeSpan.FromMilliseconds((int)SlideDurationSec * 1000));
 
             //Element Animations
-            //Animator.SlideAndFadeFromLeft(nav_pnl, 2);
+            Animator.SlideAndFadeFromLeft(LV,1,99,1);
+            Animator.FadeIn(MenuText,1);
         }
-
         private void TextBlock_MouseDown(object sender, MouseButtonEventArgs e)
         {
             UC_Tasks = new UC.User_Tasks();

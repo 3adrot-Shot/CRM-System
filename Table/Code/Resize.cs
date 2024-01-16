@@ -17,6 +17,9 @@ namespace Table.Code
         /// </summary>
         private Window mWindow;
 
+        private int MinWidth;
+        private int MinHeight;
+
         #endregion
 
         #region Dll Imports
@@ -40,12 +43,13 @@ namespace Table.Code
         /// </summary>
         /// <param name="window">The window to monitor and correctly maximize</param>
         /// <param name="adjustSize">The callback for the host to adjust the maximum available size if needed</param>
-        public WindowResizer(Window window)
+        public WindowResizer(Window window, int minWidth, int minHeight)
         {
             mWindow = window;
-
             // Listen out for source initialized to setup
             mWindow.SourceInitialized += Window_SourceInitialized;
+            MinWidth = minWidth;
+            MinHeight = minHeight;
         }
 
         #endregion
@@ -136,6 +140,10 @@ namespace Table.Code
                 lMmi.ptMaxSize.X = lPrimaryScreenInfo.rcMonitor.Right - lPrimaryScreenInfo.rcMonitor.Left;
                 lMmi.ptMaxSize.Y = lPrimaryScreenInfo.rcMonitor.Bottom - lPrimaryScreenInfo.rcMonitor.Top;
             }
+
+            // Установим минимальные размеры окна
+            lMmi.ptMinTrackSize.X = MinWidth;
+            lMmi.ptMinTrackSize.Y = MinHeight;
 
             // Now we have the max size, allow the host to tweak as needed
             Marshal.StructureToPtr(lMmi, lParam, true);

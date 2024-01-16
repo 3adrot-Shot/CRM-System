@@ -17,7 +17,6 @@
                       ResizeBorderThickness="{Binding BorderResizeThickness}"
                       CaptionHeight="{Binding CaptionHeight}"
                       CornerRadius="0"
-                      
                       GlassFrameThickness="0"
                        />
     </WindowChrome.WindowChrome>
@@ -26,7 +25,6 @@
             <ImageBrush ImageSource="/Images/back-image.jpg"
                         Stretch="None"/>
         </Border.Background>-->
-
         <Border CornerRadius="10"                    
             BorderThickness="2"
             Opacity="0.95">
