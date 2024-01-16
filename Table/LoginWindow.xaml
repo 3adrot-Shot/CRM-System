@@ -12,8 +12,16 @@
         Background="Transparent"
         AllowsTransparency="True"
         MouseDown="Window_MouseDown">
-
-    <Border CornerRadius="12" x:Name="MainWindowLogin">
+    <WindowChrome.WindowChrome>
+        <WindowChrome x:Name="WindowChrome"
+                      ResizeBorderThickness="{Binding BorderResizeThickness}"
+                      CaptionHeight="{Binding CaptionHeight}"
+                      CornerRadius="0"
+                      
+                      GlassFrameThickness="0"
+                       />
+    </WindowChrome.WindowChrome>
+        <Border CornerRadius="12" x:Name="MainWindowLogin">
         <!--<Border.Background>
             <ImageBrush ImageSource="/Images/back-image.jpg"
                         Stretch="None"/>

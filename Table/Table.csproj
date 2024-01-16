@@ -191,6 +191,7 @@
     </ApplicationDefinition>
     <Compile Include="Code\Animator.cs" />
     <Compile Include="Code\CreateStoryboardAnim.cs" />
+    <Compile Include="Code\Resize.cs" />
     <Compile Include="TestWindow.xaml.cs">
       <DependentUpon>TestWindow.xaml</DependentUpon>
     </Compile>

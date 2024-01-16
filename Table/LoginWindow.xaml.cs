@@ -13,9 +13,11 @@ namespace Table
     public partial class LoginWindow : Window
     {
         WorkWindow Work = new WorkWindow();
+        private WindowResizer windowResizer;
         public LoginWindow()
         {
             InitializeComponent();
+            windowResizer = new WindowResizer(this);
             startAnimationsAsync();
             PostgreSQL.Connect();
             if (Properties.Settings.Default.SaveLogin != "" && Properties.Settings.Default.SavePassword != "")
@@ -24,6 +26,7 @@ namespace Table
                 txtPass.Password = Properties.Settings.Default.SavePassword;
             }
         }
+        
 
         public float SlideDurationSec { set; get; } = 0.9f;
         private async Task startAnimationsAsync()
