@@ -192,6 +192,7 @@
     <Compile Include="Code\Animator.cs" />
     <Compile Include="Code\CreateStoryboardAnim.cs" />
     <Compile Include="Code\Resize.cs" />
+    <Compile Include="Code\SecureSocketClient.cs" />
     <Compile Include="Code\Settings.cs" />
     <Compile Include="MVC.cs" />
     <Compile Include="TestWindow.xaml.cs">

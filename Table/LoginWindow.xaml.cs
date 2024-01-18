@@ -13,18 +13,35 @@ namespace Table
     public partial class LoginWindow : Window
     {
         WorkWindow Work = new WorkWindow();
+        private SecureSocketClient secureSocketClient;
+
         public LoginWindow()
         {
             InitializeComponent();
             startAnimationsAsync();
             PostgreSQL.Connect();
+
+            secureSocketClient = new SecureSocketClient();
+            secureSocketClient.MessageReceived += HandleServerMessage;
+
             if (Properties.Settings.Default.SaveLogin != "" && Properties.Settings.Default.SavePassword != "")
             {
                 txtLogin.Text = Properties.Settings.Default.SaveLogin;
                 txtPass.Password = Properties.Settings.Default.SavePassword;
             }
         }
-        
+
+        private void HandleServerMessage(string message)
+        {
+            // Обработка сообщения от сервера
+            // Например, вывод в текстовое поле или что-то еще
+            Dispatcher.Invoke(() =>
+            {
+                TextBoxAuth.Visibility = Visibility.Visible;
+                checkBoxSave.Visibility = Visibility.Hidden;
+                TextBoxAuth.Text = message;
+            });
+        }
 
         public float SlideDurationSec { set; get; } = 0.9f;
         private async Task startAnimationsAsync()
@@ -52,55 +69,61 @@ namespace Table
             Application.Current.Shutdown();
         }
 
-        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        private async void btnLogin_Click(object sender, RoutedEventArgs e)
         {
             if (txtLogin.Text != "" && txtPass.Password != "") 
             {
-                string status = PostgreSQL.Auth("User", txtLogin.Text, txtPass.Password);
-                if (status == "true")
-                {
-                    if (Properties.Settings.Default.user_active != "False")
-                    {
+                // Подключение к серверу
+                await secureSocketClient.ConnectAsync("127.0.0.1", 8081);
 
-                        TextBoxAuth.Text = "Авторизация успешна.";
-                        if (checkBoxSave.IsChecked == true)
-                        {
-                            Properties.Settings.Default.SaveLogin = txtLogin.Text;
-                            Properties.Settings.Default.SavePassword = txtPass.Password;
-                            Properties.Settings.Default.Save();
-                        }
-                        else
-                        {
-                            Properties.Settings.Default.Reset();
-                        }
-                        TextBoxAuth.Visibility = Visibility.Visible;
-                        checkBoxSave.Visibility = Visibility.Hidden;
-                        this.Hide();
-                        Work.startAnimationsAsync();
-                        Work.Show();
-                    }
-                    else
-                    {
-                        TextBoxAuth.Visibility = Visibility.Visible;
-                        checkBoxSave.Visibility = Visibility.Hidden;
-                        TextBoxAuth.Text = "Аккаунт деактивирован.";
-                    }
-                }
-                else
-                {
-                    if (status != "error")
-                    {
-                        TextBoxAuth.Visibility = Visibility.Visible;
-                        checkBoxSave.Visibility = Visibility.Hidden;
-                        TextBoxAuth.Text = "Неверный логин или пароль.";
-                    }
-                    else
-                    {
-                        TextBoxAuth.Visibility = Visibility.Visible;
-                        checkBoxSave.Visibility = Visibility.Hidden;
-                        TextBoxAuth.Text = "Проблема с подключением.";
-                    }
-                }
+                // Отправка данных на сервер
+                await secureSocketClient.SendDataAsync($"Auth|{txtLogin.Text}|{txtPass.Password}");
+
+                //string status = PostgreSQL.Auth("User", txtLogin.Text, txtPass.Password);
+                //if (status == "true")
+                //{
+                //    if (Properties.Settings.Default.user_active != "False")
+                //    {
+
+                //        TextBoxAuth.Text = "Авторизация успешна.";
+                //        if (checkBoxSave.IsChecked == true)
+                //        {
+                //            Properties.Settings.Default.SaveLogin = txtLogin.Text;
+                //            Properties.Settings.Default.SavePassword = txtPass.Password;
+                //            Properties.Settings.Default.Save();
+                //        }
+                //        else
+                //        {
+                //            Properties.Settings.Default.Reset();
+                //        }
+                //        TextBoxAuth.Visibility = Visibility.Visible;
+                //        checkBoxSave.Visibility = Visibility.Hidden;
+                //        this.Hide();
+                //        Work.startAnimationsAsync();
+                //        Work.Show();
+                //    }
+                //    else
+                //    {
+                //        TextBoxAuth.Visibility = Visibility.Visible;
+                //        checkBoxSave.Visibility = Visibility.Hidden;
+                //        TextBoxAuth.Text = "Аккаунт деактивирован.";
+                //    }
+                //}
+                //else
+                //{
+                //    if (status != "error")
+                //    {
+                //        TextBoxAuth.Visibility = Visibility.Visible;
+                //        checkBoxSave.Visibility = Visibility.Hidden;
+                //        TextBoxAuth.Text = "Неверный логин или пароль.";
+                //    }
+                //    else
+                //    {
+                //        TextBoxAuth.Visibility = Visibility.Visible;
+                //        checkBoxSave.Visibility = Visibility.Hidden;
+                //        TextBoxAuth.Text = "Проблема с подключением.";
+                //    }
+                //}
             }
             else
             {
