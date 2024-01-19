@@ -69,69 +69,104 @@ namespace Table
             Application.Current.Shutdown();
         }
 
+        public class ClientInfo
+        {
+            public string Login { get; set; }
+            public string Password { get; set; }
+        }
+
         private async void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            if (txtLogin.Text != "" && txtPass.Password != "") 
+            if (txtLogin.Text != "" && txtPass.Password != "")
             {
                 // Подключение к серверу
+                secureSocketClient.Connected += () =>
+                {
+                    TextBoxAuth.Visibility = Visibility.Visible;
+                    checkBoxSave.Visibility = Visibility.Hidden;
+                    TextBoxAuth.Text = "Connected to the server.";
+                };
+
                 await secureSocketClient.ConnectAsync("127.0.0.1", 8081);
 
                 // Отправка данных на сервер
-                await secureSocketClient.SendDataAsync($"Auth|{txtLogin.Text}|{txtPass.Password}");
-
-                //string status = PostgreSQL.Auth("User", txtLogin.Text, txtPass.Password);
-                //if (status == "true")
-                //{
-                //    if (Properties.Settings.Default.user_active != "False")
-                //    {
-
-                //        TextBoxAuth.Text = "Авторизация успешна.";
-                //        if (checkBoxSave.IsChecked == true)
-                //        {
-                //            Properties.Settings.Default.SaveLogin = txtLogin.Text;
-                //            Properties.Settings.Default.SavePassword = txtPass.Password;
-                //            Properties.Settings.Default.Save();
-                //        }
-                //        else
-                //        {
-                //            Properties.Settings.Default.Reset();
-                //        }
-                //        TextBoxAuth.Visibility = Visibility.Visible;
-                //        checkBoxSave.Visibility = Visibility.Hidden;
-                //        this.Hide();
-                //        Work.startAnimationsAsync();
-                //        Work.Show();
-                //    }
-                //    else
-                //    {
-                //        TextBoxAuth.Visibility = Visibility.Visible;
-                //        checkBoxSave.Visibility = Visibility.Hidden;
-                //        TextBoxAuth.Text = "Аккаунт деактивирован.";
-                //    }
-                //}
-                //else
-                //{
-                //    if (status != "error")
-                //    {
-                //        TextBoxAuth.Visibility = Visibility.Visible;
-                //        checkBoxSave.Visibility = Visibility.Hidden;
-                //        TextBoxAuth.Text = "Неверный логин или пароль.";
-                //    }
-                //    else
-                //    {
-                //        TextBoxAuth.Visibility = Visibility.Visible;
-                //        checkBoxSave.Visibility = Visibility.Hidden;
-                //        TextBoxAuth.Text = "Проблема с подключением.";
-                //    }
-                //}
+                await secureSocketClient.SendDataAsync(new ClientInfo
+                {
+                    Login = txtLogin.Text,
+                    Password = txtPass.Password
+                });
             }
             else
             {
-                    TextBoxAuth.Visibility = Visibility.Visible;
-                    checkBoxSave.Visibility = Visibility.Hidden;
-                    TextBoxAuth.Text = "Введите логин и пароль!";
+                TextBoxAuth.Visibility = Visibility.Visible;
+                checkBoxSave.Visibility = Visibility.Hidden;
+                TextBoxAuth.Text = "Введите логин и пароль!";
             }
         }
+
+        //private async void btnLogin_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (txtLogin.Text != "" && txtPass.Password != "") 
+        //    {
+        //        // Подключение к серверу
+        //        await secureSocketClient.ConnectAsync("127.0.0.1", 8081);
+
+        //        // Отправка данных на сервер
+        //        await secureSocketClient.SendDataAsync($"Auth|{txtLogin.Text}|{txtPass.Password}");
+
+        //        //string status = PostgreSQL.Auth("User", txtLogin.Text, txtPass.Password);
+        //        //if (status == "true")
+        //        //{
+        //        //    if (Properties.Settings.Default.user_active != "False")
+        //        //    {
+
+        //        //        TextBoxAuth.Text = "Авторизация успешна.";
+        //        //        if (checkBoxSave.IsChecked == true)
+        //        //        {
+        //        //            Properties.Settings.Default.SaveLogin = txtLogin.Text;
+        //        //            Properties.Settings.Default.SavePassword = txtPass.Password;
+        //        //            Properties.Settings.Default.Save();
+        //        //        }
+        //        //        else
+        //        //        {
+        //        //            Properties.Settings.Default.Reset();
+        //        //        }
+        //        //        TextBoxAuth.Visibility = Visibility.Visible;
+        //        //        checkBoxSave.Visibility = Visibility.Hidden;
+        //        //        this.Hide();
+        //        //        Work.startAnimationsAsync();
+        //        //        Work.Show();
+        //        //    }
+        //        //    else
+        //        //    {
+        //        //        TextBoxAuth.Visibility = Visibility.Visible;
+        //        //        checkBoxSave.Visibility = Visibility.Hidden;
+        //        //        TextBoxAuth.Text = "Аккаунт деактивирован.";
+        //        //    }
+        //        //}
+        //        //else
+        //        //{
+        //        //    if (status != "error")
+        //        //    {
+        //        //        TextBoxAuth.Visibility = Visibility.Visible;
+        //        //        checkBoxSave.Visibility = Visibility.Hidden;
+        //        //        TextBoxAuth.Text = "Неверный логин или пароль.";
+        //        //    }
+        //        //    else
+        //        //    {
+        //        //        TextBoxAuth.Visibility = Visibility.Visible;
+        //        //        checkBoxSave.Visibility = Visibility.Hidden;
+        //        //        TextBoxAuth.Text = "Проблема с подключением.";
+        //        //    }
+        //        //}
+        //    }
+        //    else
+        //    {
+        //            TextBoxAuth.Visibility = Visibility.Visible;
+        //            checkBoxSave.Visibility = Visibility.Hidden;
+        //            TextBoxAuth.Text = "Введите логин и пароль!";
+        //    }
+        //}
 
         private void txtPass_KeyUp(object sender, KeyEventArgs e)
         {

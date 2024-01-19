@@ -14,6 +14,8 @@ namespace Table.Code
 
         public event Action<string> MessageReceived;
 
+        public event Action Connected;
+
         public SecureSocketClient()
         {
             tcpClient = new TcpClient();
@@ -70,11 +72,9 @@ namespace Table.Code
             }
         }
 
-
         private void HandleConnectionError(string errorMessage)
         {
-            string text = $"Error connecting to the server: {errorMessage}";
-            Debug.Print(text);
+            Debug.Print($"Error connecting to the server: {errorMessage}");
         }
 
         public void Disconnect()
