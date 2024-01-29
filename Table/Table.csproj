@@ -194,6 +194,7 @@
     <Compile Include="Code\Resize.cs" />
     <Compile Include="Code\SecureSocketClient.cs" />
     <Compile Include="Code\Settings.cs" />
+    <Compile Include="Code\SocketConnector.cs" />
     <Compile Include="MVC.cs" />
     <Compile Include="TestWindow.xaml.cs">
       <DependentUpon>TestWindow.xaml</DependentUpon>
