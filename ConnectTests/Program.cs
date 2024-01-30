@@ -13,14 +13,22 @@ namespace ConnectTests
                 Console.Write("Введите пароль: ");
                 string Password = Console.ReadLine();
 
-                SecureSocketClient client = new SecureSocketClient("127.0.0.1", 8081);
-                client.Connect();
-                string request = ReturnJson(Login, Password);
-                string response = client.SendRequest(request);
-                Console.WriteLine($"Server response: \n{response}");
-                client.CloseConnection();
-                Console.WriteLine("\nНажмите чтобы повторить...");
-                Console.ReadLine();
+                SecureSocketClient client = new SecureSocketClient("89.189.155.252", 8081);
+                if (client.Connect())
+                {
+                    string request = ReturnJson(Login, Password);
+                    string response = client.SendRequest(request);
+                    Console.WriteLine($"Server response: \n{response}");
+                    client.CloseConnection();
+                    Console.WriteLine("\nНажмите чтобы повторить...");
+                    Console.ReadLine();
+                }
+                else
+                {
+                    Console.WriteLine("Отсутствует подключение к серверу");
+                    Console.WriteLine("\nНажмите чтобы повторить...");
+                    Console.ReadLine();
+                }
             }
         }
         public static string ReturnJson(string login, string password)
@@ -41,7 +49,20 @@ namespace ConnectTests
                         Platform = "Windows",
                         Version = "v0.0.1b"
                     }
-                } 
+                },
+                Nagruzka = new[]
+                {
+                    new
+                    {
+                        Data1 = "132121432142315215821475241857293872017582917293814729143857210986497821568291347",
+                        Data2 = "132121432142315215821475241857293872017582917293814729143857210986497821568291347",
+                        Data3 = "132121432142315215821475241857293872017582917293814729143857210986497821568291347",
+                        Data4 = "132121432142315215821475241857293872017582917293814729143857210986497821568291347",
+                        Data5 = "132121432142315215821475241857293872017582917293814729143857210986497821568291347",
+                        Data6 = "132121432142315215821475241857293872017582917293814729143857210986497821568291347",
+                        Data7 = "132121432142315215821475241857293872017582917293814729143857210986497821568291347",
+                    }
+                }
             };
             return JsonConvert.SerializeObject(jsonStructure, Formatting.Indented);
         }

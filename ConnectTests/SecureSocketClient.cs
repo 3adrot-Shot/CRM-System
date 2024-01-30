@@ -14,17 +14,19 @@ public class SecureSocketClient
         serverPort = port;
     }
 
-    public void Connect()
+    public bool Connect()
     {
         try
         {
             tcpClient = new TcpClient(serverAddress, serverPort);
             networkStream = tcpClient.GetStream();
-            Console.WriteLine("Connected to the server.");
+            Console.WriteLine("Подключение к серверу.");
+            return true;
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error connecting to the server: {ex.Message}");
+            Console.WriteLine($"Ошибка подключения к серверу: \n{ex.Message}.");
+            return false;
         }
     }
 
@@ -32,24 +34,29 @@ public class SecureSocketClient
     {
         try
         {
-            // Преобразование строки в байты для отправки
             byte[] data = Encoding.UTF8.GetBytes(requestData);
 
-            // Отправка данных на сервер
+            networkStream.Write(BitConverter.GetBytes(data.Length), 0, 4); // Отправляем длину данных
+
             networkStream.Write(data, 0, data.Length);
 
             // Получение ответа от сервера
-            byte[] buffer = new byte[4096];
+            byte[] lengthBuffer = new byte[4];
+            networkStream.Read(lengthBuffer, 0, 4);
+            int responseDataLength = BitConverter.ToInt32(lengthBuffer, 0);
+
+            byte[] buffer = new byte[responseDataLength];
             int bytesRead = networkStream.Read(buffer, 0, buffer.Length);
             string responseData = Encoding.UTF8.GetString(buffer, 0, bytesRead);
             return responseData;
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error sending request: {ex.Message}");
+            Console.WriteLine($"Ошибка при получении или отправке запроса: \n{ex.Message}");
             return null;
         }
     }
+
 
     public void CloseConnection()
     {
