@@ -1,5 +1,7 @@
-﻿using System.Net.Sockets;
+﻿using System;
+using System.Net.Sockets;
 using System.Text;
+using System.Threading.Tasks;
 
 public class SecureSocketClient
 {
@@ -12,41 +14,43 @@ public class SecureSocketClient
     {
         serverAddress = address;
         serverPort = port;
+        tcpClient = new TcpClient();
     }
 
-    public bool Connect()
+    public async Task<bool> ConnectAsync()
     {
         try
         {
-            tcpClient = new TcpClient(serverAddress, serverPort);
+            await tcpClient.ConnectAsync(serverAddress, serverPort);
             networkStream = tcpClient.GetStream();
-            Console.WriteLine("Подключение к серверу.");
+            Console.WriteLine("Connected to the server.");
             return true;
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Ошибка подключения к серверу: \n{ex.Message}.");
+            Console.WriteLine($"Error connecting to the server: {ex.Message}");
             return false;
         }
     }
 
-    public string SendRequest(string requestData)
+    public async Task<string> SendRequestAsync(string requestData)
     {
+        if (!tcpClient.Connected)
+        {
+            Console.WriteLine("Not connected to the server. Attempting to reconnect...");
+            if (!await ConnectAsync())
+            {
+                return "Connection failed.";
+            }
+        }
+
         try
         {
             byte[] data = Encoding.UTF8.GetBytes(requestData);
+            await networkStream.WriteAsync(data, 0, data.Length);
 
-            networkStream.Write(BitConverter.GetBytes(data.Length), 0, 4); // Отправляем длину данных
-
-            networkStream.Write(data, 0, data.Length);
-
-            // Получение ответа от сервера
-            byte[] lengthBuffer = new byte[4];
-            networkStream.Read(lengthBuffer, 0, 4);
-            int responseDataLength = BitConverter.ToInt32(lengthBuffer, 0);
-
-            byte[] buffer = new byte[responseDataLength];
-            int bytesRead = networkStream.Read(buffer, 0, buffer.Length);
+            byte[] buffer = new byte[4096];
+            int bytesRead = await networkStream.ReadAsync(buffer, 0, buffer.Length);
             string responseData = Encoding.UTF8.GetString(buffer, 0, bytesRead);
             return responseData;
         }
@@ -60,16 +64,11 @@ public class SecureSocketClient
 
     public void CloseConnection()
     {
-        try
-        {
-            // Закрытие соединения
+        if (networkStream != null)
             networkStream.Close();
+        if (tcpClient != null)
             tcpClient.Close();
-            Console.WriteLine("Connection closed.");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error closing connection: {ex.Message}");
-        }
+
+        Console.WriteLine("Connection closed.");
     }
 }

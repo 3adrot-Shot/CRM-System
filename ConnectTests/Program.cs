@@ -12,23 +12,15 @@ namespace ConnectTests
                 string Login = Console.ReadLine();
                 Console.Write("Введите пароль: ");
                 string Password = Console.ReadLine();
-
-                SecureSocketClient client = new SecureSocketClient("89.189.155.252", 8081);
-                if (client.Connect())
-                {
-                    string request = ReturnJson(Login, Password);
-                    string response = client.SendRequest(request);
-                    Console.WriteLine($"Server response: \n{response}");
-                    client.CloseConnection();
-                    Console.WriteLine("\nНажмите чтобы повторить...");
-                    Console.ReadLine();
-                }
-                else
-                {
-                    Console.WriteLine("Отсутствует подключение к серверу");
-                    Console.WriteLine("\nНажмите чтобы повторить...");
-                    Console.ReadLine();
-                }
+                //SecureSocketClient client = new SecureSocketClient("89.189.155.252", 8081);
+                SecureSocketClient client = new SecureSocketClient("127.0.0.1", 8081);
+                client.Connect();
+                string request = ReturnJson(Login, Password);
+                string response = client.SendRequest(request);
+                Console.WriteLine($"Server response: \n{response}");
+                client.CloseConnection();
+                Console.WriteLine("\nНажмите чтобы повторить...");
+                Console.ReadLine();
             }
         }
         public static string ReturnJson(string login, string password)
